@@ -210,10 +210,10 @@ const handleInputChange = (field, value) => {
         commercialName: formData.commercialName,
         genericName: formData.genericName,
         lotNumber: formData.lotNumber,
-        quantity: parseInt(formData.quantityReceived),
+quantity_c: parseInt(formData.quantityReceived),
         expirationDate: formData.expirationDate,
         receivedDate: formData.receivedDate,
-        quantityOnHand: parseInt(formData.dosesPassed),
+        quantityOnHand_c: parseInt(formData.dosesPassed),
         administeredDoses: 0
       };
       
