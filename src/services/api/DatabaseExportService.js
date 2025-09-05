@@ -52,6 +52,13 @@ export const DatabaseExportService = {
 
       // Import data for each table
 for (const [tableName, tableData] of Object.entries(importData.tables)) {
+  // Map old table names to correct database table names
+  const tableNameMapping = {
+    'vaccine': 'vaccine_c',
+    'vaccines': 'vaccine_c'
+  };
+  
+  const actualTableName = tableNameMapping[tableName] || tableName;
         if (!tableData.records || !Array.isArray(tableData.records)) {
           results[tableName] = {
             success: false,
@@ -91,7 +98,7 @@ for (const [tableName, tableData] of Object.entries(importData.tables)) {
           for (let i = 0; i < recordsToImport.length; i += batchSize) {
             const batch = recordsToImport.slice(i, i + batchSize);
             
-            const response = await apperClient.createRecord(tableName, {
+const response = await apperClient.createRecord(actualTableName, {
               records: batch
             });
 

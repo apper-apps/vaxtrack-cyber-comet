@@ -25,7 +25,7 @@ const Inventory = () => {
     
 try {
 const data = await VaccineService.getAll();
-      // Filter out vaccines with zero quantity on hand
+// Filter out vaccines with zero quantity on hand
       const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
       const vaccinesWithStock = filterVaccinesWithStock(data);
       setVaccines(vaccinesWithStock);
@@ -63,14 +63,13 @@ await VaccineService.update(updatedVaccine.Id, updatedVaccine);
 vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
       );
       
-      // Filter out vaccines with zero quantity on hand
+// Filter out vaccines with zero quantity on hand
       const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
       const vaccinesWithStock = filterVaccinesWithStock(updatedVaccines);
-      
       setVaccines(vaccinesWithStock);
       setFilteredVaccines(
         searchTerm ? 
-        vaccinesWithStock.filter(vaccine => 
+vaccinesWithStock.filter(vaccine => 
           vaccine.commercialName_c?.toLowerCase().includes(searchTerm) ||
           vaccine.genericName_c?.toLowerCase().includes(searchTerm) ||
           vaccine.lotNumber_c?.toLowerCase().includes(searchTerm)
@@ -104,8 +103,8 @@ setError("Failed to update vaccine. Please try again.");
 
       // Summary statistics
       const totalVaccines = filteredVaccines.length;
-      const lowStockVaccines = filteredVaccines.filter(v => getStockStatus(v) === 'Low Stock').length;
-      const expiredVaccines = filteredVaccines.filter(v => getExpirationStatus(v.expirationDate) === 'expired').length;
+const lowStockVaccines = filteredVaccines.filter(v => getStockStatus(v.quantityOnHand_c) === 'Low Stock').length;
+const expiredVaccines = filteredVaccines.filter(v => getExpirationStatus(v.expirationDate_c) === 'expired').length;
 
       doc.setFontSize(14);
       doc.setFont("helvetica", "bold");
@@ -159,7 +158,7 @@ vaccine.commercialName_c || vaccine.Name,
           vaccine.quantityOnHand_c?.toString() || "0",
           vaccine.administeredDoses_c?.toString() || "0",
           vaccine.expirationDate_c ? formatDate(vaccine.expirationDate_c) : "",
-          getStockStatus(vaccine)
+          getStockStatus(vaccine.quantityOnHand_c)
         ];
 
         rowData.forEach((data, index) => {

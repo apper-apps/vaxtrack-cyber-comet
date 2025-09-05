@@ -7,11 +7,11 @@ export const getStockStatus = (quantityOnHand, lowStockThreshold = 5) => {
 };
 
 export const calculateTotalDoses = (vaccines) => {
-  return vaccines.reduce((total, vaccine) => total + (vaccine.quantityOnHand || 0), 0);
+return vaccines.reduce((total, vaccine) => total + (vaccine.quantityOnHand_c || 0), 0);
 };
 
 export const calculateAdministeredDoses = (vaccines) => {
-  return vaccines.reduce((total, vaccine) => total + (vaccine.administeredDoses || 0), 0);
+return vaccines.reduce((total, vaccine) => total + (vaccine.administeredDoses_c || 0), 0);
 };
 
 export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {
@@ -19,8 +19,8 @@ export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {
   const thresholdDate = new Date();
   thresholdDate.setDate(today.getDate() + daysThreshold);
   
-  return vaccines.filter(vaccine => {
-    if (!vaccine.expirationDate) return false;
+return vaccines.filter(vaccine => {
+    if (!vaccine.expirationDate_c) return false;
     const expDate = new Date(vaccine.expirationDate);
     return expDate > today && expDate <= thresholdDate;
   });
@@ -28,8 +28,8 @@ export const getExpiringVaccines = (vaccines, daysThreshold = 30) => {
 
 export const getExpiredVaccines = (vaccines) => {
   const today = new Date();
-  return vaccines.filter(vaccine => {
-    if (!vaccine.expirationDate) return false;
+return vaccines.filter(vaccine => {
+    if (!vaccine.expirationDate_c) return false;
     const expDate = new Date(vaccine.expirationDate);
     return expDate < today;
   });
@@ -38,8 +38,8 @@ export const getExpiredVaccines = (vaccines) => {
 export const getLowStockVaccines = (vaccines, threshold = 5) => {
   // First aggregate vaccines by name, then filter by stock threshold
   const aggregatedVaccines = aggregateVaccinesByName(vaccines);
-  return aggregatedVaccines.filter(vaccine => 
-    vaccine.quantityOnHand > 0 && vaccine.quantityOnHand <= threshold
+return aggregatedVaccines.filter(vaccine => 
+    vaccine.quantityOnHand_c > 0 && vaccine.quantityOnHand_c <= threshold
   );
 };
 
@@ -47,7 +47,7 @@ export const getOutOfStockVaccines = (vaccines) => {
   // First aggregate vaccines by name to combine quantities across lot numbers
   const aggregatedVaccines = aggregateVaccinesByName(vaccines);
   
-  // Then filter for vaccines with zero total quantity
+// Then filter for vaccines with zero total quantity on hand
   return aggregatedVaccines.filter(vaccine => vaccine.quantityOnHand === 0);
 };
 
@@ -57,7 +57,7 @@ export const sortVaccines = (vaccines, sortBy, sortOrder = "asc") => {
     let bValue = b[sortBy];
     
     // Handle different data types
-    if (sortBy === "expirationDate" || sortBy === "receivedDate") {
+if (sortBy === "expirationDate_c" || sortBy === "receivedDate_c") {
       aValue = aValue ? new Date(aValue) : new Date(0);
       bValue = bValue ? new Date(bValue) : new Date(0);
     } else if (typeof aValue === "string") {
@@ -81,8 +81,8 @@ export const searchVaccines = (vaccines, searchTerm) => {
   
   const term = searchTerm.toLowerCase();
   return vaccines.filter(vaccine => 
-    vaccine.commercialName?.toLowerCase().includes(term) ||
-    vaccine.genericName?.toLowerCase().includes(term)
+vaccine.commercialName_c?.toLowerCase().includes(term) ||
+    vaccine.genericName_c?.toLowerCase().includes(term)
   );
 };
 
@@ -90,7 +90,7 @@ export const getUniqueVaccinesByName = (vaccines) => {
   const uniqueMap = new Map();
   
   vaccines.forEach(vaccine => {
-    const key = `${vaccine.commercialName}-${vaccine.genericName}`;
+const key = `${vaccine.commercialName_c}-${vaccine.genericName_c}`;
     if (!uniqueMap.has(key)) {
       uniqueMap.set(key, vaccine);
     }
@@ -107,15 +107,15 @@ const key = `${vaccine.commercialName_c}-${vaccine.genericName_c}`;
     
     if (aggregatedMap.has(key)) {
       const existing = aggregatedMap.get(key);
-      existing.quantityOnHand += vaccine.quantityOnHand_c || 0;
-      existing.administeredDoses += vaccine.administeredDoses_c || 0;
+      existing.quantityOnHand_c += vaccine.quantityOnHand_c || 0;
+      existing.administeredDoses_c += vaccine.administeredDoses_c || 0;
     } else {
-aggregatedMap.set(key, {
+      aggregatedMap.set(key, {
         Id: vaccine.Id, // Include Id for compatibility with AlertBanner
-        commercialName: vaccine.commercialName_c,
-        genericName: vaccine.genericName_c,
-        quantityOnHand: vaccine.quantityOnHand_c || 0,
-        administeredDoses: vaccine.administeredDoses_c || 0
+        commercialName_c: vaccine.commercialName_c,
+        genericName_c: vaccine.genericName_c,
+        quantityOnHand_c: vaccine.quantityOnHand_c || 0,
+        administeredDoses_c: vaccine.administeredDoses_c || 0
       });
     }
   });
@@ -127,17 +127,21 @@ export const getVaccinesToOrder = (vaccines, threshold = 7) => {
   // Aggregate vaccines by commercial name to get total quantities
   const aggregatedVaccines = aggregateVaccinesByName(vaccines);
   
-  // Filter for vaccines with total quantity less than the threshold
+// Filter for vaccines with total quantity on hand less than the threshold
   return aggregatedVaccines.filter(vaccine => vaccine.quantityOnHand < threshold);
 };
 
 export const formatVaccineDisplayName = (vaccine) => {
+  return `${vaccine.commercialName_c || vaccine.Name || ''} (${vaccine.genericName_c || ''})`;
+};
+
+export const formatVaccineDisplayNameLegacy = (vaccine) => {
   return `${vaccine.commercialName} (${vaccine.genericName})`;
 };
 
 export const findVaccineByNames = (vaccines, commercialName, genericName) => {
-  return vaccines.find(vaccine => 
-    vaccine.commercialName?.toLowerCase() === commercialName?.toLowerCase() &&
+return vaccines.find(vaccine => 
+    vaccine.commercialName_c?.toLowerCase() === commercialName?.toLowerCase() &&
     vaccine.genericName?.toLowerCase() === genericName?.toLowerCase()
   );
 };
@@ -145,8 +149,8 @@ export const findVaccineByNames = (vaccines, commercialName, genericName) => {
 export const hasExactMatch = (vaccines, searchTerm) => {
   const term = searchTerm.toLowerCase();
   return vaccines.some(vaccine => 
-    vaccine.commercialName?.toLowerCase() === term ||
-    vaccine.genericName?.toLowerCase() === term ||
+    vaccine.commercialName_c?.toLowerCase() === term ||
+    vaccine.genericName_c?.toLowerCase() === term ||
     `${vaccine.commercialName} (${vaccine.genericName})`.toLowerCase() === term
   );
 };
@@ -167,16 +171,16 @@ export const exportVaccinesToCSV = (vaccines) => {
 
     // Convert vaccines data to CSV rows
     const csvRows = vaccines.map(vaccine => {
-      const expirationDate = vaccine.expirationDate ? new Date(vaccine.expirationDate).toLocaleDateString() : '';
-      const receivedDate = vaccine.receivedDate ? new Date(vaccine.receivedDate).toLocaleDateString() : '';
-      const stockStatus = getStockStatus(vaccine.quantityOnHand);
+const expirationDate = vaccine.expirationDate_c ? new Date(vaccine.expirationDate_c).toLocaleDateString() : '';
+      const receivedDate = vaccine.receivedDate_c ? new Date(vaccine.receivedDate_c).toLocaleDateString() : '';
+      const stockStatus = getStockStatus(vaccine.quantityOnHand_c);
       
       return [
-`"${vaccine.commercialName_c || vaccine.Name || ''}"`,
+        `"${vaccine.commercialName_c || vaccine.Name || ''}"`,
         `"${vaccine.genericName_c || ''}"`,
-        `"${vaccine.lotNumber || ''}"`,
-        vaccine.quantityOnHand || 0,
-        vaccine.administeredDoses || 0,
+        `"${vaccine.lotNumber_c || ''}"`,
+        vaccine.quantityOnHand_c || 0,
+        vaccine.administeredDoses_c || 0,
         `"${expirationDate}"`,
         `"${receivedDate}"`,
         `"${stockStatus}"`
