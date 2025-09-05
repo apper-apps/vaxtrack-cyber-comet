@@ -177,35 +177,35 @@ name: 'vaccine_c',
             { field: { Name: "CreatedOn" } },
             { field: { Name: "ModifiedOn" } }
           ]
-        },
+},
         {
-          name: 'report',
+          name: 'report_c',
           fields: [
             { field: { Name: "Name" } },
             { field: { Name: "Tags" } },
-            { field: { Name: "reportType" } },
-            { field: { Name: "vaccine" } },
-            { field: { Name: "organization" } },
+            { field: { Name: "reportType_c" } },
+            { field: { Name: "vaccine_c" } },
+            { field: { Name: "organization_c" } },
             { field: { Name: "CreatedOn" } },
             { field: { Name: "ModifiedOn" } }
           ]
         },
-        {
-          name: 'databaseStatus',
+{
+          name: 'databaseStatus_c',
           fields: [
             { field: { Name: "Name" } },
             { field: { Name: "Tags" } },
-            { field: { Name: "status" } },
-            { field: { Name: "lastCheckTime" } },
-            { field: { Name: "connectionCount" } },
-            { field: { Name: "availableStorage" } },
-            { field: { Name: "uptime" } },
+            { field: { Name: "status_c" } },
+            { field: { Name: "lastCheckTime_c" } },
+            { field: { Name: "connectionCount_c" } },
+            { field: { Name: "availableStorage_c" } },
+            { field: { Name: "uptime_c" } },
             { field: { Name: "CreatedOn" } },
             { field: { Name: "ModifiedOn" } }
           ]
         },
-        {
-          name: 'organization',
+{
+          name: 'organization_c',
           fields: [
             { field: { Name: "Name" } },
             { field: { Name: "Tags" } },
