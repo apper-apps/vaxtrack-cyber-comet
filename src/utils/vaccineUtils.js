@@ -103,19 +103,19 @@ export const aggregateVaccinesByName = (vaccines) => {
   const aggregatedMap = new Map();
   
   vaccines.forEach(vaccine => {
-    const key = `${vaccine.commercialName}-${vaccine.genericName}`;
+const key = `${vaccine.commercialName_c}-${vaccine.genericName_c}`;
     
     if (aggregatedMap.has(key)) {
       const existing = aggregatedMap.get(key);
-      existing.quantityOnHand += vaccine.quantityOnHand || 0;
-      existing.administeredDoses += vaccine.administeredDoses || 0;
+      existing.quantityOnHand += vaccine.quantityOnHand_c || 0;
+      existing.administeredDoses += vaccine.administeredDoses_c || 0;
     } else {
 aggregatedMap.set(key, {
         Id: vaccine.Id, // Include Id for compatibility with AlertBanner
-        commercialName: vaccine.commercialName,
-        genericName: vaccine.genericName,
-        quantityOnHand: vaccine.quantityOnHand || 0,
-        administeredDoses: vaccine.administeredDoses || 0
+        commercialName: vaccine.commercialName_c,
+        genericName: vaccine.genericName_c,
+        quantityOnHand: vaccine.quantityOnHand_c || 0,
+        administeredDoses: vaccine.administeredDoses_c || 0
       });
     }
   });
@@ -213,9 +213,9 @@ export const getSearchSuggestions = (vaccines, searchTerm, limit = 10) => {
   const partialMatches = [];
   
   vaccines.forEach(vaccine => {
-    const commercialName = vaccine.commercialName?.toLowerCase() || '';
-    const genericName = vaccine.genericName?.toLowerCase() || '';
-    const fullName = `${vaccine.commercialName} (${vaccine.genericName})`.toLowerCase();
+const commercialName = vaccine.commercialName_c?.toLowerCase() || '';
+    const genericName = vaccine.genericName_c?.toLowerCase() || '';
+    const fullName = `${vaccine.commercialName_c} (${vaccine.genericName_c})`.toLowerCase();
     
     if (commercialName === term || genericName === term || fullName === term) {
       exactMatches.push(vaccine);

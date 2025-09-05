@@ -60,7 +60,7 @@ const handleFieldEdit = (vaccineId, fieldName, currentValue) => {
   };
 
   const handleSaveField = (vaccine, fieldName) => {
-    const fieldKey = `${vaccine.Id}-${fieldName}`;
+const fieldKey = `${vaccine.Id}-${fieldName}`;
     const newValue = fieldEdits[fieldKey];
     
     // Field-specific validation
@@ -175,7 +175,7 @@ const columns = [
   };
 
   const handleAdminister = (vaccine) => {
-    const dosesToAdmin = adminDoses[vaccine.Id] || 0;
+const dosesToAdmin = adminDoses[vaccine.Id] || 0;
     
     if (dosesToAdmin <= 0) {
       toast.error("Please enter a valid number of doses to administer");
@@ -254,7 +254,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
           />
           <tbody className="bg-white divide-y divide-gray-200">
 {sortedVaccines.map((vaccine) => (
-              <tr key={vaccine.Id} className="group hover:bg-gray-50 transition-colors duration-150">
+<tr key={vaccine.Id} className="group hover:bg-gray-50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="font-medium text-gray-900">
                     {vaccine.commercialName_c || vaccine.Name}
@@ -294,7 +294,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber_c)}
+onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber_c', vaccine.lotNumber_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -333,7 +333,7 @@ onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber_c)}
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationDate_c)}
+onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate_c', vaccine.expirationDate_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -372,7 +372,7 @@ onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationD
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate_c)}
+onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate_c', vaccine.receivedDate_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -418,7 +418,7 @@ onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate_
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand', vaccine.quantityOnHand_c)}
+onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand_c', vaccine.quantityOnHand_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />

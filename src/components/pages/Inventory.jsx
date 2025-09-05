@@ -57,7 +57,7 @@ const filtered = vaccines.filter(vaccine =>
 
   const handleUpdateVaccine = async (updatedVaccine) => {
 try {
-      await VaccineService.update(updatedVaccine.Id, updatedVaccine);
+await VaccineService.update(updatedVaccine.Id, updatedVaccine);
       
       const updatedVaccines = vaccines.map(vaccine => 
 vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
