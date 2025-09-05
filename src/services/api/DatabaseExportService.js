@@ -51,7 +51,7 @@ export const DatabaseExportService = {
       let totalFailed = 0;
 
       // Import data for each table
-      for (const [tableName, tableData] of Object.entries(importData.tables)) {
+for (const [tableName, tableData] of Object.entries(importData.tables)) {
         if (!tableData.records || !Array.isArray(tableData.records)) {
           results[tableName] = {
             success: false,
@@ -161,19 +161,19 @@ export const DatabaseExportService = {
       const exportData = {};
       const tableConfigs = [
         {
-          name: 'vaccine',
+name: 'vaccine_c',
           fields: [
             { field: { Name: "Name" } },
             { field: { Name: "Tags" } },
-            { field: { Name: "commercialName" } },
-            { field: { Name: "genericName" } },
-            { field: { Name: "lotNumber" } },
-            { field: { Name: "quantity" } },
-            { field: { Name: "expirationDate" } },
-            { field: { Name: "receivedDate" } },
-            { field: { Name: "quantityOnHand" } },
-            { field: { Name: "administeredDoses" } },
-            { field: { Name: "editPassword" } },
+            { field: { Name: "commercialName_c" } },
+            { field: { Name: "genericName_c" } },
+            { field: { Name: "lotNumber_c" } },
+            { field: { Name: "quantity_c" } },
+            { field: { Name: "expirationDate_c" } },
+            { field: { Name: "receivedDate_c" } },
+            { field: { Name: "quantityOnHand_c" } },
+            { field: { Name: "administeredDoses_c" } },
+            { field: { Name: "editPassword_c" } },
             { field: { Name: "CreatedOn" } },
             { field: { Name: "ModifiedOn" } }
           ]

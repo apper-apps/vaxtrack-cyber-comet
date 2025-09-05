@@ -257,11 +257,11 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
               <tr key={vaccine.Id} className="group hover:bg-gray-50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="font-medium text-gray-900">
-                    {vaccine.commercialName}
+                    {vaccine.commercialName_c || vaccine.Name}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                  {vaccine.genericName}
+                  {vaccine.genericName_c}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap font-mono text-sm">
 {isFieldEditing(vaccine.Id, 'lotNumber') ? (
@@ -290,11 +290,11 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                     </div>
                   ) : (
                     <div className="flex items-center space-x-2 group">
-                      <span className="text-gray-600">{vaccine.lotNumber}</span>
+<span className="text-gray-600">{vaccine.lotNumber_c}</span>
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber)}
+onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -329,11 +329,11 @@ onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber)}
                     </div>
                   ) : (
                     <div className="flex items-center space-x-2 group">
-                      <span className="text-gray-600">{formatDate(vaccine.expirationDate)}</span>
+<span className="text-gray-600">{formatDate(vaccine.expirationDate_c)}</span>
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationDate)}
+onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationDate_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -368,11 +368,11 @@ onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationD
                     </div>
                   ) : (
                     <div className="flex items-center space-x-2 group">
-                      <span className="text-gray-600">{formatDate(vaccine.receivedDate)}</span>
+<span className="text-gray-600">{formatDate(vaccine.receivedDate_c)}</span>
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate)}
+onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -413,12 +413,12 @@ onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate)
                         vaccine.quantityOnHand === 0 ? "text-red-600" :
                         vaccine.quantityOnHand <= 5 ? "text-orange-600" : "text-green-600"
                       )}>
-                        {vaccine.quantityOnHand}
+{vaccine.quantityOnHand_c}
                       </span>
                       <Button
                         variant="ghost"
                         size="sm"
-onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand', vaccine.quantityOnHand)}
+onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand', vaccine.quantityOnHand_c)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />

@@ -46,10 +46,10 @@ const data = await VaccineService.getAll();
       return;
     }
     
-    const filtered = vaccines.filter(vaccine => 
-      vaccine.commercialName?.toLowerCase().includes(term) ||
-      vaccine.genericName?.toLowerCase().includes(term) ||
-      vaccine.lotNumber?.toLowerCase().includes(term)
+const filtered = vaccines.filter(vaccine => 
+      vaccine.commercialName_c?.toLowerCase().includes(term) ||
+      vaccine.genericName_c?.toLowerCase().includes(term) ||
+      vaccine.lotNumber_c?.toLowerCase().includes(term)
     );
     
     setFilteredVaccines(filtered);

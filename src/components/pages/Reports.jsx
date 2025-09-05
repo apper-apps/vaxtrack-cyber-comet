@@ -105,15 +105,15 @@ const { getVaccinesToOrder } = await import("@/utils/vaccineUtils");
         const { getUniqueVaccinesByName } = await import("@/utils/vaccineUtils");
         const uniqueVaccines = getUniqueVaccinesByName(vaccines);
         reportData = sortVaccines(uniqueVaccines.map(vaccine => ({
-          Id: vaccine.Id,
-          commercialName: vaccine.commercialName || '',
-          genericName: vaccine.genericName || '',
+commercialName: vaccine.commercialName_c || vaccine.Name || '',
+          genericName: vaccine.genericName_c || '',
           lotNumber: '',
           expirationDate: '',
           receivedDate: '',
           quantityOnHand: 0,
           administeredDoses: 0
         })), "commercialName", "asc");
+        reportTitle = "Vaccine Inventory Template";
         reportTitle = "Vaccine Inventory Template";
         break;
       default:
@@ -449,19 +449,19 @@ const isOrdersReport = reportType === "orders";
 {reportData.map((vaccine, index) => (
                 <tr key={vaccine.Id || `${vaccine.commercialName}-${vaccine.genericName}-${index}`} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="font-medium text-gray-900">{vaccine.commercialName}</div>
+<div className="font-medium text-gray-900">{vaccine.commercialName_c || vaccine.Name}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                    {vaccine.genericName}
+                    {vaccine.genericName_c}
                   </td>
                   {reportType !== "orders" && (
-                    <td className="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-600">
-                      {vaccine.lotNumber}
+<td className="px-6 py-4 whitespace-nowrap font-mono text-sm text-gray-600">
+                      {vaccine.lotNumber_c}
                     </td>
                   )}
                   {reportType !== "orders" && (
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                      {formatDate(vaccine.expirationDate)}
+<td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                      {formatDate(vaccine.expirationDate_c)}
                     </td>
                   )}
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -469,11 +469,11 @@ const isOrdersReport = reportType === "orders";
                       vaccine.quantityOnHand === 0 ? "text-red-600" :
                       vaccine.quantityOnHand <= 5 ? "text-orange-600" : "text-green-600"
                     }`}>
-                      {vaccine.quantityOnHand}
+{vaccine.quantityOnHand_c}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                    {vaccine.administeredDoses || 0}
+{vaccine.administeredDoses_c || 0}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {reportType === "orders" ? (

@@ -112,7 +112,7 @@ export const aggregateVaccinesByName = (vaccines) => {
     } else {
 aggregatedMap.set(key, {
         Id: vaccine.Id, // Include Id for compatibility with AlertBanner
-        commercialName_c: vaccine.commercialName_c,
+        commercialName: vaccine.commercialName,
         genericName: vaccine.genericName,
         quantityOnHand: vaccine.quantityOnHand || 0,
         administeredDoses: vaccine.administeredDoses || 0
