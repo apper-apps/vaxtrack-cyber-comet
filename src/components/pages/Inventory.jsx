@@ -25,8 +25,10 @@ const Inventory = () => {
     
 try {
 const data = await VaccineService.getAll();
-// Filter out vaccines with zero quantity on hand
-      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
+// Filter to show vaccines with stock OR that have been received
+      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => 
+        vaccine.quantityOnHand_c > 0 || vaccine.receivedDate_c
+      );
       const vaccinesWithStock = filterVaccinesWithStock(data);
       setVaccines(vaccinesWithStock);
       setFilteredVaccines(vaccinesWithStock);
@@ -63,8 +65,10 @@ await VaccineService.update(updatedVaccine.Id, updatedVaccine);
 vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
       );
       
-// Filter out vaccines with zero quantity on hand
-      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
+// Filter to show vaccines with stock OR that have been received
+      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => 
+        vaccine.quantityOnHand_c > 0 || vaccine.receivedDate_c
+      );
       const vaccinesWithStock = filterVaccinesWithStock(updatedVaccines);
       setVaccines(vaccinesWithStock);
       setFilteredVaccines(
