@@ -110,9 +110,9 @@ export const aggregateVaccinesByName = (vaccines) => {
       existing.quantityOnHand += vaccine.quantityOnHand || 0;
       existing.administeredDoses += vaccine.administeredDoses || 0;
     } else {
-      aggregatedMap.set(key, {
+aggregatedMap.set(key, {
         Id: vaccine.Id, // Include Id for compatibility with AlertBanner
-        commercialName: vaccine.commercialName,
+        commercialName_c: vaccine.commercialName_c,
         genericName: vaccine.genericName,
         quantityOnHand: vaccine.quantityOnHand || 0,
         administeredDoses: vaccine.administeredDoses || 0
@@ -172,8 +172,8 @@ export const exportVaccinesToCSV = (vaccines) => {
       const stockStatus = getStockStatus(vaccine.quantityOnHand);
       
       return [
-        `"${vaccine.commercialName || vaccine.Name || ''}"`,
-        `"${vaccine.genericName || ''}"`,
+`"${vaccine.commercialName_c || vaccine.Name || ''}"`,
+        `"${vaccine.genericName_c || ''}"`,
         `"${vaccine.lotNumber || ''}"`,
         vaccine.quantityOnHand || 0,
         vaccine.administeredDoses || 0,

@@ -24,9 +24,9 @@ const Inventory = () => {
     setError("");
     
 try {
-      const data = await VaccineService.getAll();
+const data = await VaccineService.getAll();
       // Filter out vaccines with zero quantity on hand
-      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand > 0);
+      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
       const vaccinesWithStock = filterVaccinesWithStock(data);
       setVaccines(vaccinesWithStock);
       setFilteredVaccines(vaccinesWithStock);
@@ -60,20 +60,20 @@ try {
       await VaccineService.update(updatedVaccine.Id, updatedVaccine);
       
       const updatedVaccines = vaccines.map(vaccine => 
-        vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
+vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
       );
       
       // Filter out vaccines with zero quantity on hand
-      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand > 0);
+      const filterVaccinesWithStock = (vaccines) => vaccines.filter(vaccine => vaccine.quantityOnHand_c > 0);
       const vaccinesWithStock = filterVaccinesWithStock(updatedVaccines);
       
       setVaccines(vaccinesWithStock);
       setFilteredVaccines(
         searchTerm ? 
         vaccinesWithStock.filter(vaccine => 
-          vaccine.commercialName?.toLowerCase().includes(searchTerm) ||
-          vaccine.genericName?.toLowerCase().includes(searchTerm) ||
-          vaccine.lotNumber?.toLowerCase().includes(searchTerm)
+          vaccine.commercialName_c?.toLowerCase().includes(searchTerm) ||
+          vaccine.genericName_c?.toLowerCase().includes(searchTerm) ||
+          vaccine.lotNumber_c?.toLowerCase().includes(searchTerm)
         ) : vaccinesWithStock
       );
     } catch (err) {
@@ -153,12 +153,12 @@ setError("Failed to update vaccine. Please try again.");
 
         xPosition = margin;
         const rowData = [
-          vaccine.commercialName || vaccine.Name,
-          vaccine.genericName || "",
-          vaccine.lotNumber || "",
-          vaccine.quantityOnHand?.toString() || "0",
-          vaccine.administeredDoses?.toString() || "0",
-          vaccine.expirationDate ? formatDate(vaccine.expirationDate) : "",
+vaccine.commercialName_c || vaccine.Name,
+          vaccine.genericName_c || "",
+          vaccine.lotNumber_c || "",
+          vaccine.quantityOnHand_c?.toString() || "0",
+          vaccine.administeredDoses_c?.toString() || "0",
+          vaccine.expirationDate_c ? formatDate(vaccine.expirationDate_c) : "",
           getStockStatus(vaccine)
         ];
 

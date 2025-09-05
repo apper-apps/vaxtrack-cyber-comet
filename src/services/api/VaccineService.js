@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
+import React from "react";
 
 export const VaccineService = {
-  async getAll() {
+async getAll() {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
@@ -14,14 +15,14 @@ export const VaccineService = {
           { field: { Name: "Name" } },
           { field: { Name: "Tags" } },
           { field: { Name: "Owner" } },
-          { field: { Name: "commercialName" } },
-          { field: { Name: "genericName" } },
-          { field: { Name: "lotNumber" } },
-          { field: { Name: "quantity" } },
-          { field: { Name: "expirationDate" } },
-          { field: { Name: "receivedDate" } },
-          { field: { Name: "quantityOnHand" } },
-          { field: { Name: "administeredDoses" } }
+          { field: { Name: "commercialName_c" } },
+          { field: { Name: "genericName_c" } },
+          { field: { Name: "lotNumber_c" } },
+          { field: { Name: "quantity_c" } },
+          { field: { Name: "expirationDate_c" } },
+          { field: { Name: "receivedDate_c" } },
+          { field: { Name: "quantityOnHand_c" } },
+          { field: { Name: "administeredDoses_c" } }
         ],
         orderBy: [
           {
@@ -35,7 +36,7 @@ export const VaccineService = {
         }
       };
 
-      const response = await apperClient.fetchRecords("vaccine", params);
+      const response = await apperClient.fetchRecords("vaccine_c", params);
 
       if (!response.success) {
         console.error("Error fetching vaccines:", response.message);
@@ -52,7 +53,7 @@ export const VaccineService = {
       }
       return [];
     }
-  },
+},
 
   async getById(id) {
     try {
@@ -67,18 +68,18 @@ export const VaccineService = {
           { field: { Name: "Name" } },
           { field: { Name: "Tags" } },
           { field: { Name: "Owner" } },
-          { field: { Name: "commercialName" } },
-          { field: { Name: "genericName" } },
-          { field: { Name: "lotNumber" } },
-          { field: { Name: "quantity" } },
-          { field: { Name: "expirationDate" } },
-          { field: { Name: "receivedDate" } },
-          { field: { Name: "quantityOnHand" } },
-          { field: { Name: "administeredDoses" } }
+          { field: { Name: "commercialName_c" } },
+          { field: { Name: "genericName_c" } },
+          { field: { Name: "lotNumber_c" } },
+          { field: { Name: "quantity_c" } },
+          { field: { Name: "expirationDate_c" } },
+          { field: { Name: "receivedDate_c" } },
+          { field: { Name: "quantityOnHand_c" } },
+          { field: { Name: "administeredDoses_c" } }
         ]
       };
 
-      const response = await apperClient.getRecordById("vaccine", parseInt(id), params);
+      const response = await apperClient.getRecordById("vaccine_c", parseInt(id), params);
 
       if (!response.success) {
         console.error(`Error fetching vaccine with ID ${id}:`, response.message);
@@ -105,24 +106,23 @@ export const VaccineService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      // Only include Updateable fields for create operation
+// Only include Updateable fields for create operation
       const createData = {
-        commercialName: vaccineData.commercialName,
-        genericName: vaccineData.genericName,
-        lotNumber: vaccineData.lotNumber,
-        quantity: parseInt(vaccineData.quantity),
-        expirationDate: vaccineData.expirationDate,
-        receivedDate: vaccineData.receivedDate,
-        quantityOnHand: parseInt(vaccineData.quantityOnHand),
-        administeredDoses: parseInt(vaccineData.administeredDoses || 0)
+        commercialName_c: vaccineData.commercialName,
+        genericName_c: vaccineData.genericName,
+        lotNumber_c: vaccineData.lotNumber,
+        quantity_c: parseInt(vaccineData.quantity_c),
+        expirationDate_c: vaccineData.expirationDate_c,
+        receivedDate_c: vaccineData.receivedDate_c,
+        quantityOnHand_c: parseInt(vaccineData.quantityOnHand_c),
+        administeredDoses_c: parseInt(vaccineData.administeredDoses_c || 0)
       };
 
       const params = {
         records: [createData]
       };
 
-      const response = await apperClient.createRecord("vaccine", params);
-
+      const response = await apperClient.createRecord("vaccine_c", params);
       if (!response.success) {
         console.error("Error creating vaccine:", response.message);
         toast.error(response.message);
@@ -164,24 +164,23 @@ export const VaccineService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      // Only include Updateable fields for update operation
+// Only include Updateable fields for update operation
       const updateData = {
         Id: parseInt(id),
-        ...(updatedData.commercialName !== undefined && { commercialName: updatedData.commercialName }),
-        ...(updatedData.genericName !== undefined && { genericName: updatedData.genericName }),
-        ...(updatedData.lotNumber !== undefined && { lotNumber: updatedData.lotNumber }),
-        ...(updatedData.quantity !== undefined && { quantity: parseInt(updatedData.quantity) }),
-        ...(updatedData.expirationDate !== undefined && { expirationDate: updatedData.expirationDate }),
-        ...(updatedData.receivedDate !== undefined && { receivedDate: updatedData.receivedDate }),
-        ...(updatedData.quantityOnHand !== undefined && { quantityOnHand: parseInt(updatedData.quantityOnHand) }),
-        ...(updatedData.administeredDoses !== undefined && { administeredDoses: parseInt(updatedData.administeredDoses) })
+        ...(updatedData.commercialName_c !== undefined && { commercialName_c: updatedData.commercialName_c }),
+        ...(updatedData.genericName_c !== undefined && { genericName_c: updatedData.genericName_c }),
+        ...(updatedData.lotNumber_c !== undefined && { lotNumber_c: updatedData.lotNumber_c }),
+        ...(updatedData.quantity_c !== undefined && { quantity_c: parseInt(updatedData.quantity_c) }),
+        ...(updatedData.expirationDate_c !== undefined && { expirationDate_c: updatedData.expirationDate_c }),
+        ...(updatedData.receivedDate_c !== undefined && { receivedDate_c: updatedData.receivedDate_c }),
+        ...(updatedData.quantityOnHand_c !== undefined && { quantityOnHand_c: parseInt(updatedData.quantityOnHand_c) }),
+        ...(updatedData.administeredDoses_c !== undefined && { administeredDoses_c: parseInt(updatedData.administeredDoses_c) })
       };
 
-      const params = {
-        records: [updateData]
-      };
-
-      const response = await apperClient.updateRecord("vaccine", params);
+      const records = [updateData];
+      const params = { records };
+    // Make API call
+      const response = await apperClient.updateRecord("vaccine_c", params);
 
       if (!response.success) {
         console.error(`Error updating vaccine with ID ${id}:`, response.message);
@@ -224,11 +223,11 @@ export const VaccineService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         RecordIds: [parseInt(id)]
       };
 
-      const response = await apperClient.deleteRecord("vaccine", params);
+      const response = await apperClient.deleteRecord("vaccine_c", params);
 
       if (!response.success) {
         console.error(`Error deleting vaccine with ID ${id}:`, response.message);
@@ -272,16 +271,16 @@ export const VaccineService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Name" } },
-          { field: { Name: "commercialName" } },
-          { field: { Name: "genericName" } },
-          { field: { Name: "quantityOnHand" } }
+          { field: { Name: "commercialName_c" } },
+          { field: { Name: "genericName_c" } },
+          { field: { Name: "quantityOnHand_c" } }
         ],
         where: [
           {
-            FieldName: "commercialName",
+            FieldName: "commercialName_c",
             Operator: "Contains",
             Values: [searchTerm],
             Include: true
@@ -294,7 +293,7 @@ export const VaccineService = {
               {
                 conditions: [
                   {
-                    fieldName: "commercialName",
+                    fieldName: "commercialName_c",
                     operator: "Contains",
                     subOperator: "",
                     values: [searchTerm]
@@ -305,7 +304,7 @@ export const VaccineService = {
               {
                 conditions: [
                   {
-                    fieldName: "genericName",
+                    fieldName: "genericName_c",
                     operator: "Contains",
                     subOperator: "",
                     values: [searchTerm]
@@ -318,7 +317,7 @@ export const VaccineService = {
         ],
         orderBy: [
           {
-            fieldName: "commercialName",
+            fieldName: "commercialName_c",
             sorttype: "ASC"
           }
         ],
@@ -328,7 +327,7 @@ export const VaccineService = {
         }
       };
 
-      const response = await apperClient.fetchRecords("vaccine", params);
+      const response = await apperClient.fetchRecords("vaccine_c", params);
 
       if (!response.success) {
         console.error("Error searching vaccines:", response.message);

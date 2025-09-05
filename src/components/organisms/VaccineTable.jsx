@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import ApperIcon from "@/components/ApperIcon";
-import TableHeader from "@/components/molecules/TableHeader";
-import Badge from "@/components/atoms/Badge";
-import Input from "@/components/atoms/Input";
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
-import { cn } from "@/utils/cn";
 import { formatDate, getDaysUntilExpiration, getExpirationStatus } from "@/utils/dateUtils";
 import { getStockStatus } from "@/utils/vaccineUtils";
+import { cn } from "@/utils/cn";
+import ApperIcon from "@/components/ApperIcon";
+import TableHeader from "@/components/molecules/TableHeader";
+import Input from "@/components/atoms/Input";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 
 const VaccineTable = ({ 
   vaccines = [], 
@@ -264,7 +264,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                   {vaccine.genericName}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap font-mono text-sm">
-                  {isFieldEditing(vaccine.Id, 'lotNumber') ? (
+{isFieldEditing(vaccine.Id, 'lotNumber') ? (
                     <div className="flex items-center space-x-2">
                       <Input
                         type="text"
@@ -294,7 +294,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber)}
+onClick={() => handleFieldEdit(vaccine.Id, 'lotNumber', vaccine.lotNumber)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -303,7 +303,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                   )}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap">
-                  {isFieldEditing(vaccine.Id, 'expirationDate') ? (
+{isFieldEditing(vaccine.Id, 'expirationDate') ? (
                     <div className="flex items-center space-x-2">
                       <Input
                         type="date"
@@ -333,7 +333,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationDate)}
+onClick={() => handleFieldEdit(vaccine.Id, 'expirationDate', vaccine.expirationDate)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -342,7 +342,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                   )}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap">
-                  {isFieldEditing(vaccine.Id, 'receivedDate') ? (
+{isFieldEditing(vaccine.Id, 'receivedDate') ? (
                     <div className="flex items-center space-x-2">
                       <Input
                         type="date"
@@ -372,7 +372,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate)}
+onClick={() => handleFieldEdit(vaccine.Id, 'receivedDate', vaccine.receivedDate)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />
@@ -381,7 +381,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                   )}
                 </td>
 <td className="px-6 py-4 whitespace-nowrap">
-                  {isFieldEditing(vaccine.Id, 'quantityOnHand') ? (
+{isFieldEditing(vaccine.Id, 'quantityOnHand') ? (
                     <div className="flex items-center space-x-2">
                       <Input
                         type="number"
@@ -418,7 +418,7 @@ const sortedVaccines = [...vaccines].sort((a, b) => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand', vaccine.quantityOnHand)}
+onClick={() => handleFieldEdit(vaccine.Id, 'quantityOnHand', vaccine.quantityOnHand)}
                         className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
                         <ApperIcon name="Edit2" className="h-3 w-3" />

@@ -18,9 +18,9 @@ const RecordAdministration = () => {
     setError("");
     
     try {
-      const data = await VaccineService.getAll();
+const data = await VaccineService.getAll();
       // Filter to show only vaccines with stock > 0
-      const availableVaccines = data.filter(vaccine => vaccine.quantityOnHand > 0);
+      const availableVaccines = data.filter(vaccine => vaccine.quantityOnHand_c > 0);
       setVaccines(availableVaccines);
       setFilteredVaccines(availableVaccines);
     } catch (err) {
@@ -53,18 +53,18 @@ const RecordAdministration = () => {
       await VaccineService.update(updatedVaccine.Id, updatedVaccine);
       
       // Update the vaccine in our state
-      const updatedVaccines = vaccines.map(vaccine => 
+const updatedVaccines = vaccines.map(vaccine => 
         vaccine.Id === updatedVaccine.Id ? updatedVaccine : vaccine
-      ).filter(vaccine => vaccine.quantityOnHand > 0); // Keep only vaccines with stock
+      ).filter(vaccine => vaccine.quantityOnHand_c > 0); // Keep only vaccines with stock
       
       setVaccines(updatedVaccines);
       
       // Update filtered vaccines
       const updatedFiltered = (searchTerm ? 
         updatedVaccines.filter(vaccine => 
-          vaccine.commercialName?.toLowerCase().includes(searchTerm) ||
-          vaccine.genericName?.toLowerCase().includes(searchTerm) ||
-          vaccine.lotNumber?.toLowerCase().includes(searchTerm)
+          vaccine.commercialName_c?.toLowerCase().includes(searchTerm) ||
+          vaccine.genericName_c?.toLowerCase().includes(searchTerm) ||
+          vaccine.lotNumber_c?.toLowerCase().includes(searchTerm)
         ) : updatedVaccines
       );
       
